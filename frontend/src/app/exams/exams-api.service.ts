@@ -1,20 +1,108 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {API_URL} from '../env';
+import {API_URL, JWT, AUUrl, CLIID, CLISEC, AUD} from '../env';
 import {Exam} from './exams.model';
+//import * as Auth0 from 'auth0-web';
+//import { AuthService } from '@auth0/auth0-angular';
+
+interface tokener{
+    token_type: string;
+    access_token: string;
+}
 
 @Injectable()
 export class ExamsApiService {
     private resp: any;
+    private token!: string;
 
     constructor(private http: HttpClient) {
     }
-
+    /*
+    getToken = async () => {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'content-type': 'application/json' }),
+          };
+          const body = {"client_id":CLIID,
+          "client_secret":CLISEC,
+          "audience":AUD,
+          "grant_type":"client_credentials"
+            }
+          console.log(httpOptions);
+          return this.http
+            .post(`${AUUrl}`, JSON.stringify(body), httpOptions);
+    }
+    */
     // GET list of public, future events
     public getExams(): Observable<Exam[]>{
         this.resp = this.http.get(`${API_URL}/exams`);
         console.log(this.resp);
         return this.resp;
     }
+
+    saveExam = async (exam: Exam) => {
+        /*
+        const getting = (value: any): any => {
+            this.token = value.access_token;
+            console.log(this.token);
+            return this.token;
+        }
+        (await this.getToken()).toPromise().then(getting);
+
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization': `Bearer ${this.token}`
+          })
+        };
+        console.log(httpOptions);*/
+        //var headers_object = new HttpHeaders().set("Authorization", "Bearer " + JWT);
+        //var httpOptions = {headers: headers_object}; 
+        //console.log(JSON.stringify(httpOptions));
+        var resp = this.http
+        .post(`${API_URL}/exams`, JSON.stringify(exam));
+        console.log(resp)
+        return resp;
+    }
 }
+
+/*
+var jwtCheck = jwt({
+      secret: jwks.expressJwtSecret({
+          cache: true,
+          rateLimit: true,
+          jwksRequestsPerMinute: 5,
+          jwksUri: 'https://dev-l56abpcz.us.auth0.com/.well-known/jwks.json'
+    }),
+    audience: 'https://ihorkulinich.github.io/online-exam/',
+    issuer: 'https://dev-l56abpcz.us.auth0.com/',
+    algorithms: ['RS256']
+});
+
+app.use(jwtCheck);
+
+app.get('/authorized', function (req, res) {
+    res.send('Secured Resource');
+});
+*/
+
+/*
+loginUser(user) {
+const creds = user.username + ":" + user.password;
+
+const httpOptions = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Basic' + btoa(creds)
+    }),
+    responseType: 'text'
+};
+
+return this.http.post(this._loginUrl, user, httpOptions);
+
+url: 'https://dev-l56abpcz.us.auth0.com/oauth/token',
+  body: '{"client_id":"5YH8Gx0Tr0EYXgjspiRglBVmiLd8gAib",
+  "client_secret":"twqxboplz5wtLFAPgCgAlMdQq4B1d1Db5X_ry2MmEchfxpMvwuyGeRZ9QH7Pmv40",
+  "audience":"https://ihorkulinich.github.io/online-exam/","grant_type":"client_credentials"}' };
+
+
+*/
