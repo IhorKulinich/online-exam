@@ -3,7 +3,7 @@ import jwt
 
 payload_data = {"title": "Try by token curl","description": "Auth."}
 
-my_secret = 'twqxboplz5wtLFAPgCgAlMdQq4B1d1Db5X_ry2MmEchfxpMvwuyGeRZ9QH7Pmv40'
+my_secret = 'SECRET'
 
 token = jwt.encode(
     payload=payload_data,

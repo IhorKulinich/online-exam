@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {API_URL, JWT, AUUrl, CLIID, CLISEC, AUD} from '../env';
+import {API_URL} from '../env';
 import {Exam} from './exams.model';
 //import * as Auth0 from 'auth0-web';
 //import { AuthService } from '@auth0/auth0-angular';
@@ -64,45 +64,3 @@ export class ExamsApiService {
         return resp;
     }
 }
-
-/*
-var jwtCheck = jwt({
-      secret: jwks.expressJwtSecret({
-          cache: true,
-          rateLimit: true,
-          jwksRequestsPerMinute: 5,
-          jwksUri: 'https://dev-l56abpcz.us.auth0.com/.well-known/jwks.json'
-    }),
-    audience: 'https://ihorkulinich.github.io/online-exam/',
-    issuer: 'https://dev-l56abpcz.us.auth0.com/',
-    algorithms: ['RS256']
-});
-
-app.use(jwtCheck);
-
-app.get('/authorized', function (req, res) {
-    res.send('Secured Resource');
-});
-*/
-
-/*
-loginUser(user) {
-const creds = user.username + ":" + user.password;
-
-const httpOptions = {
-    headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Basic' + btoa(creds)
-    }),
-    responseType: 'text'
-};
-
-return this.http.post(this._loginUrl, user, httpOptions);
-
-url: 'https://dev-l56abpcz.us.auth0.com/oauth/token',
-  body: '{"client_id":"5YH8Gx0Tr0EYXgjspiRglBVmiLd8gAib",
-  "client_secret":"twqxboplz5wtLFAPgCgAlMdQq4B1d1Db5X_ry2MmEchfxpMvwuyGeRZ9QH7Pmv40",
-  "audience":"https://ihorkulinich.github.io/online-exam/","grant_type":"client_credentials"}' };
-
-
-*/
